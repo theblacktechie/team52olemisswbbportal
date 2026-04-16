@@ -13,7 +13,7 @@ Published to GitHub Pages at `theblacktechie.github.io`
 
 ## File
 
-`building52.html` — single self-contained file, no dependencies beyond CDN-loaded D3 and Google Fonts.
+`building52.html`: single self-contained file, no dependencies beyond CDN-loaded D3 and Google Fonts.
 
 ---
 
@@ -36,7 +36,7 @@ Full current roster with returners and portal additions, live portal window noti
 
 - **Font:** Inter (Google Fonts)
 - **Colors:** Off-white background (#F7F5F2), Ole Miss Red (#CE1126) as accent, Ole Miss Navy (#14213D) for containers and returner indicators, Charcoal (#1C1C1C) for primary text
-- **Aesthetic:** Athletic minimalist — The Athletic / Sportico editorial influence
+- **Aesthetic:** Athletic minimalist: The Athletic / Sportico editorial influence
 - **Palette rule:** Ole Miss colors are accents only, not dominant fills
 
 ---
