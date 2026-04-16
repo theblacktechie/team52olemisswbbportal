@@ -21,13 +21,13 @@ Published to GitHub Pages at `theblacktechie.github.io`
 
 Three tabbed sections:
 
-**Tab 1 — The Reload**
+**Tab 1: The Reload**
 D3 flow visualization showing three columns: Departed (7 graduates + 2 portal exits), The Core (3 returners), and Incoming (6 portal additions). Animated bezier paths connect departed players to their replacements. Below the flow chart: an animated horizontal bar chart showing each commitment by date.
 
-**Tab 2 — Where They Came From**
+**Tab 2: Where They Came From**
 Player cards for all six portal additions with stats from their previous school, position badge, commit date, and editorial POV. International callout highlighting three Canadian-national players: Howard (Vancouver, BC), Anderson (Toronto, ON), and Okokoh (Montreal, QC).
 
-**Tab 3 — Team 52 So Far**
+**Tab 3: Team 52 So Far**
 Full current roster with returners and portal additions, live portal window notice, and tally bar (3 returning / 6 incoming / 9 on roster / more coming).
 
 ---
