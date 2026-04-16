@@ -1,5 +1,5 @@
-# Building 52 | Ole Miss Women's Basketball
-**Built by Kris Smith · The Black Techie · 2026 Offseason**
+# Building 52: Ole Miss Women's Basketball
+**Built by Kris Smith · Ole Miss WBB · 2026 Offseason**
 
 ---
 
