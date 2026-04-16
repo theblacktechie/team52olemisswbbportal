@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team 52 | Ole Miss Women's Basketball</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #CE1126;
+    --navy: #14213D;
+    --white: #FFFFFF;
+    --off-white: #F7F5F2;
+    --light-gray: #E0DDD8;
+    --mid-gray: #8C8A87;
+    --dark-gray: #3D3B38;
+    --charcoal: #1C1C1C;
+    --font: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    font-family: var(--font);
+    background: var(--off-white);
+    color: var(--charcoal);
+    min-height: 100vh;
+  }
+
+  /* ---- HEADER ---- */
+  .header {
+    background: var(--white);
+    padding: 24px 20px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .header-eyebrow {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 12px;
+  }
+
+  /* Headline: always one line — JS auto-fits font size */
+  .header-title {
+    font-weight: 900;
+    color: var(--charcoal);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 10px;
+    font-size: 52px; /* JS will override */
+  }
+
+  .header-title .accent { color: var(--red); }
+
+  /* Quote — centered, no left bar */
+  .quote-wrapper { display: flex; justify-content: center; }
+
+  .quote-block {
+    text-align: center;
+    max-width: 540px;
+  }
+
+  .quote-text {
+    font-size: clamp(11px, 2vw, 13px);
+    font-weight: 500;
+    color: var(--dark-gray);
+    font-style: italic;
+    line-height: 1.55;
+  }
+
+  .quote-attr {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 5px;
+    margin-bottom: 0;
+    line-height: 1.4;
+  }
+
+  /* ---- TAB NAV ---- */
+  .tab-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    padding: 13px 18px;
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .tab-btn.active { color: var(--charcoal); border-bottom-color: var(--red); }
+  .tab-btn:hover:not(.active) { color: var(--dark-gray); }
+
+  /* ---- TAB CONTENT ---- */
+  .tab-content {
+    display: none;
+    background: var(--off-white);
+    padding: 0;           /* no extra bottom padding — controlled per section */
+  }
+
+  .tab-content.active { display: block; }
+
+  /* ---- SECTION HEADER BLOCK (flush) ---- */
+  .section-header-block {
+    background: var(--white);
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--light-gray);
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  @media (min-width: 768px) { .section-label { font-size: 11px; } }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--dark-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .legend-dot { width: 9px; height: 9px; }
+
+  @media (min-width: 768px) {
+    .legend-item { font-size: 11px; gap: 8px; }
+    .legend-dot { width: 11px; height: 11px; }
+    .legend { gap: 20px; }
+  }
+
+  /* ---- VIZ HINT ---- */
+  .viz-hint {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dark-gray);
+    padding: 10px 14px;
+    background: var(--off-white);
+    border-bottom: 1px solid var(--light-gray);
+    text-align: center;
+  }
+
+  /* ---- D3 VIZ CONTAINERS ---- */
+  #reload-viz {
+    width: 100%;
+    background: var(--white);
+    border-top: 3px solid var(--red);
+    overflow-x: auto;
+  }
+
+  #reload-svg { display: block; }
+
+  /* ---- PACE SECTION ---- */
+  .pace-wrap {
+    max-width: 920px;
+    margin: 20px auto 0;
+    padding: 0 16px;
+  }
+
+  .pace-block {
+    background: var(--white);
+    border-left: 3px solid var(--red);
+    padding: 18px 20px;
+  }
+
+  .pace-title {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 768px) { .pace-title { font-size: 18px; } }
+
+  .pace-body {
+    font-size: 12px;
+    color: var(--dark-gray);
+    line-height: 1.75;
+  }
+
+  @media (min-width: 768px) { .pace-body { font-size: 13px; } }
+
+  .timeline-wrap {
+    max-width: 920px;
+    margin: 2px auto 0;
+    padding: 0 16px;
+    padding-bottom: 20px;   /* controlled bottom gap for tab 1 */
+  }
+
+  #timeline-viz {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    overflow-x: auto;
+  }
+
+  #timeline-svg { display: block; }
+
+  /* ---- TOOLTIP ---- */
+  .tooltip {
+    position: fixed;
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 12px 16px;
+    font-family: var(--font);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 1000;
+    border-left: 3px solid var(--red);
+    width: 240px;
+    line-height: 1.6;
+  }
+
+  .tooltip.show { opacity: 1; }
+  @media (min-width: 768px) { .tooltip { width: 270px; } }
+
+  .tip-name {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--white);
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 768px) { .tip-name { font-size: 14px; } }
+
+  .tip-pos {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.42);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .tip-stat {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+    display: block;
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .tip-stat:last-child { border-bottom: none; }
+  @media (min-width: 768px) { .tip-stat { font-size: 12px; } }
+
+  /* ---- PLAYER CARDS (Tab 2) ---- */
+  .tab-content-padded {
+    padding: 20px 16px 0;   /* no bottom padding — tally bar is flush */
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .players-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 580px) { .players-grid { grid-template-columns: 1fr 1fr; } }
+
+  .player-card { background: var(--white); border-top: 3px solid var(--red); padding: 18px; }
+
+  .player-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .player-pos-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: var(--white);
+    padding: 3px 8px;
+    margin-bottom: 8px;
+  }
+
+  .canada-badge {
+    font-size: 8px;
+    font-weight: 800;
+    color: var(--white);
+    background: var(--red);
+    padding: 2px 6px;
+  }
+
+  .player-name { font-size: 20px; font-weight: 900; color: var(--charcoal); line-height: 1.1; letter-spacing: -0.02em; }
+  .player-prev { font-size: 9px; font-weight: 600; letter-spacing: 0.06em; color: var(--mid-gray); text-transform: uppercase; margin-top: 4px; }
+
+  .commit-date {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: rgba(206,17,38,0.07);
+    padding: 5px 9px;
+    white-space: nowrap;
+  }
+
+  .player-stats { display: flex; margin: 14px 0; border-top: 1px solid var(--light-gray); border-bottom: 1px solid var(--light-gray); }
+  .stat-item { flex: 1; text-align: center; padding: 10px 6px; border-right: 1px solid var(--light-gray); }
+  .stat-item:last-child { border-right: none; }
+  .stat-val { font-size: 22px; font-weight: 900; color: var(--red); line-height: 1; letter-spacing: -0.02em; }
+  .stat-val.navy { color: var(--navy); }
+  .stat-label { font-size: 8px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid-gray); margin-top: 3px; }
+  .player-pov { font-size: 12px; color: var(--dark-gray); line-height: 1.7; }
+
+  /* ---- INTL NOTE — navy bg, 2 lines mobile / 1 line web ---- */
+  .intl-note {
+    background: var(--navy);
+    color: rgba(255,255,255,0.88);
+    padding: 9px 14px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-size: 9px;
+    text-align: center;
+    white-space: normal;
+    word-break: normal;
+  }
+
+  @media (min-width: 768px) {
+    .intl-note {
+      font-size: 11.5px;
+      padding: 10px 18px;
+      line-height: 1.4;
+    }
+  }
+
+  .intl-note strong { color: var(--white); font-weight: 800; }
+
+  /* ---- ROSTER (Tab 3) ---- */
+  .portal-notice {
+    background: var(--navy);
+    color: rgba(255,255,255,0.85);
+    padding: 10px 12px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    margin-bottom: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (min-width: 480px) {
+    .portal-notice {
+      font-size: 11px;
+      white-space: normal;
+      padding: 12px 16px;
+      font-weight: 600;
+    }
+  }
+
+  .portal-notice span { color: #FF6B6B; font-weight: 800; }
+
+  .roster-section { margin-bottom: 16px; }
+
+  .roster-section-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 8px;
+  }
+
+  .roster-player {
+    background: var(--white);
+    border-left: 3px solid transparent;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+    transition: background 0.15s;
+  }
+
+  .roster-player:hover { background: #eeecea; }
+  .roster-player.incoming { border-left-color: var(--red); }
+  .roster-player.returner { border-left-color: var(--navy); }
+
+  .roster-player-name { font-size: 14px; font-weight: 800; color: var(--charcoal); }
+  .roster-player-meta { font-size: 10px; color: var(--mid-gray); font-weight: 500; margin-top: 2px; }
+  .roster-stat-val { font-size: 14px; font-weight: 900; color: var(--red); text-align: right; }
+  .roster-stat-label { font-size: 8px; color: var(--mid-gray); font-weight: 600; text-align: right; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* ---- TALLY — Ole Miss Navy, flush bottom ---- */
+  .tally-bar {
+    background: var(--navy);
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 20px 12px;
+    margin-top: 16px;
+  }
+
+  .tally-divider { width: 1px; background: rgba(255,255,255,0.12); align-self: stretch; }
+  .tally-num { font-size: 34px; font-weight: 900; color: var(--red); line-height: 1; letter-spacing: -0.02em; }
+  .tally-label { font-size: 8px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 6px; }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    text-align: center;
+    padding: 16px 12px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    border-top: 1px solid var(--light-gray);
+    background: var(--white);
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.7;
+  }
+
+  @media (min-width: 600px) {
+    .footer {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip">
+  <span class="tip-name"  id="tip-name"></span>
+  <span class="tip-pos"   id="tip-pos"></span>
+  <div  id="tip-stats"></div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Ole Miss Women's Basketball &nbsp;&middot;&nbsp; 2026 Offseason &nbsp;&middot;&nbsp; Team 52</div>
+  <div class="header-title" id="header-title">
+    We Don't Rebuild at Ole Miss. <span class="accent">We Reload.</span>
+  </div>
+  <div class="quote-wrapper">
+    <div class="quote-block">
+      <div class="quote-text">"We don't rebuild at Ole Miss...We reload."</div>
+      <div class="quote-attr">Coach Yolett McPhee-McCuin &nbsp;&middot;&nbsp; The Rebel Walk &nbsp;&middot;&nbsp; March 22, 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('reload', this)">The Reload</button>
+  <button class="tab-btn" onclick="showTab('from', this)">Where They Came From</button>
+  <button class="tab-btn" onclick="showTab('roster', this)">Team 52 So Far</button>
+</div>
+
+
+<!-- ===== TAB 1: THE RELOAD ===== -->
+<div class="tab-content active" id="tab-reload">
+
+  <div class="section-header-block">
+    <div class="section-label">Roster Movement &nbsp;&middot;&nbsp; 2026 Offseason</div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#B0ADA8;"></div>Graduated</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7A8898;"></div>Portal Exit</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1C1C1C;"></div>Returning Rebel</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#CE1126;"></div>Incoming</div>
+    </div>
+  </div>
+
+  <div id="reload-viz">
+    <div class="viz-hint">Hover or Tap any player bar to see details</div>
+    <svg id="reload-svg"></svg>
+  </div>
+
+  <div class="pace-wrap">
+    <div class="pace-block">
+      <div class="pace-title">The Pace of the Reload</div>
+      <div class="pace-body">Six commitments secured in eight days. The chart below shows how fast Coach Yo assembled Team 52, each bar representing a player ordered by commit date. The portal window closes April 20 and the roster is still being built.</div>
+    </div>
+  </div>
+
+  <div class="timeline-wrap">
+    <div id="timeline-viz">
+      <svg id="timeline-svg"></svg>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ===== TAB 2: WHERE THEY CAME FROM ===== -->
+<div class="tab-content" id="tab-from">
+  <div class="tab-content-padded">
+
+    <div class="intl-note">
+      <strong>International:</strong> Howard (Vancouver, BC) &middot; Anderson (Toronto, ON) &middot; Okokoh (Montreal, QC) &middot; three of six represent Canada. Coach Yo is building globally.
+    </div>
+
+    <div class="players-grid">
+
+      <div class="player-card">
+        <div class="player-card-header">
+          <div>
+            <div class="player-pos-badge">G &nbsp;|&nbsp; 6-0 &nbsp;|&nbsp; Jr.</div>
+            <div class="player-name">Talaysia Cooper</div>
+            <div class="player-prev">Tennessee &rarr; Ole Miss</div>
+          </div>
+          <div class="commit-date">Apr 8</div>
+        </div>
+        <div class="player-stats">
+          <div class="stat-item"><div class="stat-val">16.0</div><div class="stat-label">PPG</div></div>
+          <div class="stat-item"><div class="stat-val navy">4.7</div><div class="stat-label">RPG</div></div>
+          <div class="stat-item"><div class="stat-val">3.6</div><div class="stat-label">APG</div></div>
+          <div class="stat-item"><div class="stat-val navy">2.7</div><div class="stat-label">SPG</div></div>
+        </div>
+        <div class="player-pov">ESPN's #4 transfer. All-SEC 2nd Team two straight years. Led Tennessee in points, assists and steals. Coach Yo has known her since 9th grade. This is not a gamble. It's a reunion.</div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-card-header">
+          <div>
+            <div class="player-pos-badge">C &nbsp;|&nbsp; 6-5 &nbsp;|&nbsp; Jr. &nbsp;<span class="canada-badge">&#127464;&#127462; Canada</span></div>
+            <div class="player-name">Emily Howard</div>
+            <div class="player-prev">Boise State (via Liberty) &rarr; Ole Miss</div>
+          </div>
+          <div class="commit-date">Apr 9</div>
+        </div>
+        <div class="player-stats">
+          <div class="stat-item"><div class="stat-val">7.4</div><div class="stat-label">PPG Peak</div></div>
+          <div class="stat-item"><div class="stat-val navy">58.3%</div><div class="stat-label">FG% Liberty</div></div>
+          <div class="stat-item"><div class="stat-val">1.1</div><div class="stat-label">BPG</div></div>
+        </div>
+        <div class="player-pov">The interior answer after losing Iwuala and Lattimore. Peak production at Liberty before injury shows what Oxford can unlock. Size. Physicality. Room to grow in the SEC.</div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-card-header">
+          <div>
+            <div class="player-pos-badge">G/F &nbsp;|&nbsp; 6-1 &nbsp;|&nbsp; Soph. &nbsp;<span class="canada-badge">&#127464;&#127462; Canada</span></div>
+            <div class="player-name">Maya Anderson</div>
+            <div class="player-prev">San Jose State &rarr; Ole Miss</div>
+          </div>
+          <div class="commit-date">Apr 10</div>
+        </div>
+        <div class="player-stats">
+          <div class="stat-item"><div class="stat-val">13.9</div><div class="stat-label">PPG</div></div>
+          <div class="stat-item"><div class="stat-val navy">6.7</div><div class="stat-label">RPG</div></div>
+          <div class="stat-item"><div class="stat-val">1.4</div><div class="stat-label">SPG</div></div>
+          <div class="stat-item"><div class="stat-val navy">32</div><div class="stat-label">GS</div></div>
+        </div>
+        <div class="player-pov">"A hidden gem." Led her team in scoring, rebounds and steals. Started every game. Coach Yo saw something others missed. Those numbers in the SEC will be a story to watch.</div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-card-header">
+          <div>
+            <div class="player-pos-badge">G &nbsp;|&nbsp; 5-9 &nbsp;|&nbsp; Sr.</div>
+            <div class="player-name">Knisha Godfrey</div>
+            <div class="player-prev">Florida (via TCU) &rarr; Ole Miss</div>
+          </div>
+          <div class="commit-date">Apr 11</div>
+        </div>
+        <div class="player-stats">
+          <div class="stat-item"><div class="stat-val">31</div><div class="stat-label">GP Florida</div></div>
+          <div class="stat-item"><div class="stat-val navy">SEC</div><div class="stat-label">Vet</div></div>
+          <div class="stat-item"><div class="stat-val">#40</div><div class="stat-label">espnW Recruit</div></div>
+        </div>
+        <div class="player-pov">A floor general who already knows the SEC pace, SEC bodies and SEC stakes. Coach Yo said it plainly: leadership is what Team 52 needs. Godfrey filled the requirement immediately.</div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-card-header">
+          <div>
+            <div class="player-pos-badge">F/C &nbsp;|&nbsp; 6-4 &nbsp;|&nbsp; Soph. &nbsp;<span class="canada-badge">&#127464;&#127462; Canada</span></div>
+            <div class="player-name">Rachael Okokoh</div>
+            <div class="player-prev">Penn State &rarr; Ole Miss</div>
+          </div>
+          <div class="commit-date">Apr 11</div>
+        </div>
+        <div class="player-stats">
+          <div class="stat-item"><div class="stat-val">6-4</div><div class="stat-label">Height</div></div>
+          <div class="stat-item"><div class="stat-val navy">45%</div><div class="stat-label">FG%</div></div>
+          <div class="stat-item"><div class="stat-val">U17</div><div class="stat-label">Team Canada</div></div>
+        </div>
+        <div class="player-pov">"Do your research on the development of our post players." That was Coach Yo's response. The comp is Iwuala. The track record in Oxford is real. Okokoh is the next project.</div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-card-header">
+          <div>
+            <div class="player-pos-badge">W &nbsp;|&nbsp; 6-0 &nbsp;|&nbsp; Soph.</div>
+            <div class="player-name">Jaida Civil</div>
+            <div class="player-prev">Tennessee &rarr; Ole Miss</div>
+          </div>
+          <div class="commit-date">Apr 15</div>
+        </div>
+        <div class="player-stats">
+          <div class="stat-item"><div class="stat-val">6.4</div><div class="stat-label">PPG</div></div>
+          <div class="stat-item"><div class="stat-val navy">4.0</div><div class="stat-label">RPG</div></div>
+          <div class="stat-item"><div class="stat-val">30</div><div class="stat-label">GP</div></div>
+        </div>
+        <div class="player-pov">Five-star recruit out of Miami. The tools and the ceiling were never in question. Oxford gives her the role and the system to let it all out. This one develops. Watch.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== TAB 3: TEAM 52 SO FAR ===== -->
+<div class="tab-content" id="tab-roster">
+  <div class="tab-content-padded">
+
+    <div class="portal-notice">
+      Portal window closes <span>April 20, 2026</span> &nbsp;&middot;&nbsp; This roster is live. More moves expected.
+    </div>
+
+    <div class="roster-section">
+      <div class="roster-section-label">Returning Rebels</div>
+      <div class="roster-player returner">
+        <div>
+          <div class="roster-player-name">Sira Thienou</div>
+          <div class="roster-player-meta">G &nbsp;&middot;&nbsp; 6-1 &nbsp;&middot;&nbsp; Soph. &nbsp;&middot;&nbsp; Bamako, Mali</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">10.5 PPG</div>
+          <div class="roster-stat-label">The Cornerstone</div>
+        </div>
+      </div>
+      <div class="roster-player returner">
+        <div>
+          <div class="roster-player-name">Desrae Kyles</div>
+          <div class="roster-player-meta">C &nbsp;&middot;&nbsp; 6-5 &nbsp;&middot;&nbsp; Soph. &nbsp;&middot;&nbsp; Benton Harbor, Mich.</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">Interior</div>
+          <div class="roster-stat-label">Developmental Big</div>
+        </div>
+      </div>
+      <div class="roster-player returner">
+        <div>
+          <div class="roster-player-name">Lauren Jacobs</div>
+          <div class="roster-player-meta">G &nbsp;&middot;&nbsp; Soph. &nbsp;&middot;&nbsp; South Carolina</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">#1 SC</div>
+          <div class="roster-stat-label">Recruit Class of 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roster-section">
+      <div class="roster-section-label">Portal Additions</div>
+      <div class="roster-player incoming">
+        <div>
+          <div class="roster-player-name">Talaysia Cooper</div>
+          <div class="roster-player-meta">G &nbsp;&middot;&nbsp; 6-0 &nbsp;&middot;&nbsp; Jr. &nbsp;&middot;&nbsp; Tennessee &rarr; Ole Miss &nbsp;&middot;&nbsp; Apr 8</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">16.0 PPG</div>
+          <div class="roster-stat-label">ESPN #4 Transfer</div>
+        </div>
+      </div>
+      <div class="roster-player incoming">
+        <div>
+          <div class="roster-player-name">Emily Howard &#127464;&#127462;</div>
+          <div class="roster-player-meta">C &nbsp;&middot;&nbsp; 6-5 &nbsp;&middot;&nbsp; Jr. &nbsp;&middot;&nbsp; Boise State &rarr; Ole Miss &nbsp;&middot;&nbsp; Apr 9</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">58.3% FG</div>
+          <div class="roster-stat-label">Peak at Liberty</div>
+        </div>
+      </div>
+      <div class="roster-player incoming">
+        <div>
+          <div class="roster-player-name">Maya Anderson &#127464;&#127462;</div>
+          <div class="roster-player-meta">G/F &nbsp;&middot;&nbsp; 6-1 &nbsp;&middot;&nbsp; Soph. &nbsp;&middot;&nbsp; San Jose State &rarr; Ole Miss &nbsp;&middot;&nbsp; Apr 10</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">13.9 PPG</div>
+          <div class="roster-stat-label">Led SJSU in 3 Categories</div>
+        </div>
+      </div>
+      <div class="roster-player incoming">
+        <div>
+          <div class="roster-player-name">Knisha Godfrey</div>
+          <div class="roster-player-meta">G &nbsp;&middot;&nbsp; 5-9 &nbsp;&middot;&nbsp; Sr. &nbsp;&middot;&nbsp; Florida &rarr; Ole Miss &nbsp;&middot;&nbsp; Apr 11</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">SEC Vet</div>
+          <div class="roster-stat-label">Floor General</div>
+        </div>
+      </div>
+      <div class="roster-player incoming">
+        <div>
+          <div class="roster-player-name">Rachael Okokoh &#127464;&#127462;</div>
+          <div class="roster-player-meta">F/C &nbsp;&middot;&nbsp; 6-4 &nbsp;&middot;&nbsp; Soph. &nbsp;&middot;&nbsp; Penn State &rarr; Ole Miss &nbsp;&middot;&nbsp; Apr 11</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">Team Canada</div>
+          <div class="roster-stat-label">U17 World Cup</div>
+        </div>
+      </div>
+      <div class="roster-player incoming">
+        <div>
+          <div class="roster-player-name">Jaida Civil</div>
+          <div class="roster-player-meta">W &nbsp;&middot;&nbsp; 6-0 &nbsp;&middot;&nbsp; Soph. &nbsp;&middot;&nbsp; Tennessee &rarr; Ole Miss &nbsp;&middot;&nbsp; Apr 15</div>
+        </div>
+        <div>
+          <div class="roster-stat-val">6.4 PPG</div>
+          <div class="roster-stat-label">5-Star &nbsp;&middot;&nbsp; Miami, Fla.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tally: Ole Miss Navy, no bottom margin (flush to footer) -->
+    <div class="tally-bar">
+      <div><div class="tally-num">3</div><div class="tally-label">Returning</div></div>
+      <div class="tally-divider"></div>
+      <div><div class="tally-num">6</div><div class="tally-label">Incoming</div></div>
+      <div class="tally-divider"></div>
+      <div><div class="tally-num">9</div><div class="tally-label">On Roster</div></div>
+      <div class="tally-divider"></div>
+      <div><div class="tally-num" style="color:rgba(255,255,255,0.28);">+</div><div class="tally-label">More Coming</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Built by Kris Smith &nbsp;&middot;&nbsp; Ole Miss Women's Basketball &nbsp;&middot;&nbsp; 2026 Offseason &nbsp;&middot;&nbsp; Team 52
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+
+  // ---- HEADLINE AUTO-FIT (always one line) ----
+  function fitTitle() {
+    const el  = document.getElementById('header-title');
+    const par = el.parentElement;
+    const maxW = par.clientWidth - 40; // 20px padding each side
+    let size = 60;
+    el.style.fontSize = size + 'px';
+    while (el.scrollWidth > maxW && size > 8) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  }
+
+  // ---- TAB SWITCHING ----
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    if (id === 'reload') setTimeout(() => { drawReloadViz(); drawTimeline(); }, 60);
+  }
+
+  const isDesktop = () => window.innerWidth >= 768;
+
+  // ---- DATA — no dashes in stat strings ----
+  const exits = [
+    { name: "Cotie McMahon",     type: "grad",   pos: "F", stats: ["19.5 PPG", "Led Ole Miss in scoring", "2026 SEC Newcomer of the Year"] },
+    { name: "Christeen Iwuala",  type: "grad",   pos: "F", stats: ["12.5 PPG", "8.3 RPG", "Led team in rebounds", "60.1% FG", "3rd best in program history", "11 double-doubles"] },
+    { name: "Latasha Lattimore", type: "grad",   pos: "C", stats: ["Started all 35 games", "Paint anchor for Team 51"] },
+    { name: "Debreasha Powe",    type: "grad",   pos: "G", stats: ["Key contributor", "SEC tournament run"] },
+    { name: "Denim DeShields",   type: "grad",   pos: "G", stats: ["Breakout SEC tourney run", "20 pts vs Texas", "72.7% shooting"] },
+    { name: "Kaitlin Peterson",  type: "grad",   pos: "G", stats: ["21.4 PPG at UCF", "Veteran scorer", "Perimeter threat"] },
+    { name: "Jayla Murray",      type: "grad",   pos: "F", stats: ["12.4 PPG at Wichita State", "Forward scoring production"] },
+    { name: "Tianna Thompson",   type: "portal", pos: "G", stats: ["6.0 PPG", "Entered portal Apr 3, 2026"] },
+    { name: "J'Adore Young",     type: "portal", pos: "C", stats: ["6-4 center", "No longer on 2026-27 roster"] },
+  ];
+
+  const returners = [
+    { name: "Sira Thienou",  pos: "G", stats: ["10.5 PPG", "4.7 RPG", "2.4 SPG", "SEC Freshman of the Week 2x"] },
+    { name: "Desrae Kyles",  pos: "C", stats: ["6-5 developmental center", "Season-high 8 pts vs South Carolina"] },
+    { name: "Lauren Jacobs", pos: "G", stats: ["#1 recruit in South Carolina", "Class of 2025"] },
+  ];
+
+  const incoming = [
+    { name: "Talaysia Cooper",  pos: "G",   from: "Tennessee",    stats: ["16.0 PPG", "4.7 RPG", "3.6 APG", "2.7 SPG", "ESPN #4 Transfer", "All-SEC 2nd Team"],          date: "Apr 8",  dateObj: new Date('2026-04-08') },
+    { name: "Emily Howard",     pos: "C",   from: "Boise State",  stats: ["7.4 PPG peak at Liberty", "58.3% FG before injury", "1.1 BPG", "Vancouver, BC, Canada"],      date: "Apr 9",  dateObj: new Date('2026-04-09') },
+    { name: "Maya Anderson",    pos: "G/F", from: "San Jose St.", stats: ["13.9 PPG", "6.7 RPG", "1.4 SPG", "Started all 32 games", "Toronto, ON, Canada"],              date: "Apr 10", dateObj: new Date('2026-04-10') },
+    { name: "Knisha Godfrey",   pos: "G",   from: "Florida",      stats: ["31 GP at Florida", "SEC veteran floor general", "espnW #40 recruit"],                          date: "Apr 11", dateObj: new Date('2026-04-11') },
+    { name: "Rachael Okokoh",   pos: "F/C", from: "Penn State",   stats: ["6-4 forward/center", "45% FG at Penn State", "Team Canada U17 World Cup", "Montreal, QC"],    date: "Apr 11", dateObj: new Date('2026-04-11') },
+    { name: "Jaida Civil",      pos: "W",   from: "Tennessee",    stats: ["6.4 PPG", "4.0 RPG", "30 GP at Tennessee", "5-star recruit", "Miami, FL"],                    date: "Apr 15", dateObj: new Date('2026-04-15') },
+  ];
+
+  // ---- TOOLTIP ----
+  const tooltipEl  = document.getElementById('tooltip');
+  const tipNameEl  = document.getElementById('tip-name');
+  const tipPosEl   = document.getElementById('tip-pos');
+  const tipStatsEl = document.getElementById('tip-stats');
+
+  function showTip(event, d) {
+    tipNameEl.textContent = d.name;
+    tipPosEl.textContent  = d.pos;
+    tipStatsEl.innerHTML  = (d.stats || []).map(s => `<span class="tip-stat">${s}</span>`).join('');
+    tooltipEl.classList.add('show');
+    moveTip(event);
+  }
+
+  function moveTip(event) {
+    const tipW = isDesktop() ? 270 : 240;
+    let x = event.clientX + 14;
+    let y = event.clientY - 14;
+    if (x + tipW > window.innerWidth) x = event.clientX - tipW - 14;
+    if (y + 260 > window.innerHeight) y = event.clientY - 200;
+    if (y < 0) y = 8;
+    tooltipEl.style.left = x + 'px';
+    tooltipEl.style.top  = y + 'px';
+  }
+
+  function hideTip() { tooltipEl.classList.remove('show'); }
+
+  function bindTip(el, d) {
+    el.addEventListener('mouseenter', e => showTip(e, d));
+    el.addEventListener('mousemove',  e => moveTip(e));
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('touchstart', e => { e.preventDefault(); showTip(e.touches[0], d); }, { passive: false });
+    el.addEventListener('touchend',   () => setTimeout(hideTip, 2200));
+  }
+
+  // ---- RELOAD VIZ ----
+  function drawReloadViz() {
+    const desktop = isDesktop();
+    const container = document.getElementById('reload-viz');
+    const totalW  = Math.max(container.clientWidth, 340);
+    const nodeH   = desktop ? 44 : 38;
+    const nodeGap = desktop ? 8  : 6;
+    const colW    = Math.min(desktop ? 185 : 152, Math.floor((totalW - 64) / 3));
+    const padX    = 14;
+    const startY  = desktop ? 54 : 46;
+    const totalH  = exits.length * (nodeH + nodeGap) + startY + 10;
+    const nameSz  = desktop ? 14 : 12;
+    const posSz   = desktop ? 11 : 10;
+    const lblSz   = desktop ? 10 : 8;
+
+    const svg = d3.select('#reload-svg').attr('width', totalW).attr('height', totalH);
+    svg.selectAll('*').remove();
+
+    const col1x = padX;
+    const col3x = totalW - padX - colW;
+    const col2x = Math.floor((totalW - colW) / 2);
+
+    const cols = [
+      { x: col1x, text: "DEPARTED",  color: "#8C8A87" },
+      { x: col2x, text: "THE CORE",  color: "#1C1C1C" },
+      { x: col3x, text: "INCOMING",  color: "#CE1126" },
+    ];
+
+    cols.forEach(c => {
+      svg.append('text')
+        .attr('x', c.x + colW / 2).attr('y', desktop ? 20 : 18)
+        .attr('text-anchor', 'middle')
+        .attr('font-family', 'Inter, sans-serif')
+        .attr('font-size', lblSz).attr('font-weight', 800)
+        .attr('letter-spacing', '0.14em').attr('fill', c.color)
+        .text(c.text);
+      svg.append('line')
+        .attr('x1', c.x).attr('y1', desktop ? 28 : 24)
+        .attr('x2', c.x + colW).attr('y2', desktop ? 28 : 24)
+        .attr('stroke', c.color).attr('stroke-width', 2).attr('opacity', 0.25);
+    });
+
+    function getY(i) { return startY + i * (nodeH + nodeGap); }
+
+    incoming.forEach((p, i) => {
+      const exitIdx = Math.min(i, exits.length - 1);
+      const x1 = col1x + colW, y1 = getY(exitIdx) + nodeH / 2;
+      const x2 = col3x,        y2 = getY(i) + nodeH / 2;
+      const cpx = (x1 + x2) / 2;
+      const path = svg.append('path')
+        .attr('d', `M${x1},${y1} C${cpx},${y1} ${cpx},${y2} ${x2},${y2}`)
+        .attr('fill', 'none').attr('stroke', '#CE1126')
+        .attr('stroke-width', 1.5).attr('stroke-opacity', 0);
+      const len = path.node().getTotalLength();
+      path.attr('stroke-dasharray', len).attr('stroke-dashoffset', len)
+        .transition().delay(200 + i * 150).duration(500).ease(d3.easeCubicOut)
+        .attr('stroke-dashoffset', 0).attr('stroke-opacity', 0.18);
+    });
+
+    function drawNode(x, y, w, fill, alpha, lastName, pos, d, animated, delay) {
+      const g = svg.append('g').style('cursor', 'pointer');
+      const tf = (fill === '#1C1C1C' || fill === '#CE1126') ? '#FFFFFF' : '#1C1C1C';
+      const ta = (fill === '#1C1C1C' || fill === '#CE1126') ? 1 : 1;
+
+      if (animated) {
+        g.append('rect').attr('x', x).attr('y', y).attr('width', w).attr('height', nodeH)
+          .attr('fill', fill).attr('opacity', 0)
+          .transition().delay(delay).duration(250).attr('opacity', 1);
+        g.append('text').attr('x', x + 9).attr('y', y + nodeH / 2 + 1)
+          .attr('dominant-baseline', 'middle')
+          .attr('font-family', 'Inter, sans-serif').attr('font-size', nameSz).attr('font-weight', 700)
+          .attr('fill', tf).attr('opacity', 0).text(lastName)
+          .transition().delay(delay + 60).duration(200).attr('opacity', 1);
+        g.append('text').attr('x', x + w - 7).attr('y', y + nodeH / 2 + 1)
+          .attr('dominant-baseline', 'middle').attr('text-anchor', 'end')
+          .attr('font-family', 'Inter, sans-serif').attr('font-size', posSz).attr('font-weight', 700)
+          .attr('fill', tf).attr('opacity', 0).text(pos)
+          .transition().delay(delay + 60).duration(200).attr('opacity', 0.6);
+      } else {
+        g.append('rect').attr('x', x).attr('y', y).attr('width', w).attr('height', nodeH)
+          .attr('fill', fill).attr('opacity', alpha);
+        g.append('text').attr('x', x + 9).attr('y', y + nodeH / 2 + 1)
+          .attr('dominant-baseline', 'middle')
+          .attr('font-family', 'Inter, sans-serif').attr('font-size', nameSz).attr('font-weight', 700)
+          .attr('fill', tf).text(lastName);
+        g.append('text').attr('x', x + w - 7).attr('y', y + nodeH / 2 + 1)
+          .attr('dominant-baseline', 'middle').attr('text-anchor', 'end')
+          .attr('font-family', 'Inter, sans-serif').attr('font-size', posSz).attr('font-weight', 700)
+          .attr('fill', tf).attr('opacity', 0.45).text(pos);
+      }
+
+      const hit = g.append('rect').attr('x', x).attr('y', y).attr('width', w).attr('height', nodeH)
+        .attr('fill', 'transparent').node();
+      bindTip(hit, d);
+    }
+
+    exits.forEach((d, i) => {
+      const fill  = d.type === 'grad' ? '#B0ADA8' : '#7A8898';
+      const alpha = d.type === 'grad' ? 0.7 : 0.52;
+      drawNode(col1x, getY(i), colW, fill, alpha, d.name.split(' ').slice(-1)[0], d.pos, d, false, 0);
+    });
+
+    const span = (incoming.length - 1) * (nodeH + nodeGap) + nodeH;
+    const rH   = (returners.length - 1) * (nodeH + nodeGap) + nodeH;
+    const rOff = (span - rH) / 2;
+    returners.forEach((d, i) => {
+      const y = startY + rOff + i * (nodeH + nodeGap);
+      drawNode(col2x, y, colW, '#1C1C1C', 1, d.name.split(' ').slice(-1)[0], d.pos, d, false, 0);
+    });
+
+    incoming.forEach((d, i) => {
+      drawNode(col3x, getY(i), colW, '#CE1126', 1, d.name.split(' ').slice(-1)[0], d.pos, d, true, 750 + i * 150);
+    });
+  }
+
+  // ---- TIMELINE: ANIMATED HORIZONTAL BAR CHART ----
+  function drawTimeline() {
+    const desktop = isDesktop();
+    const container = document.getElementById('timeline-viz');
+    const totalW  = Math.max(container.clientWidth, 300);
+    const padL    = desktop ? 88 : 70;
+    const padR    = 12;
+    const padTop  = 14;
+    const rowH    = desktop ? 42 : 36;
+    const rowGap  = desktop ? 8  : 6;
+    const totalH  = incoming.length * (rowH + rowGap) - rowGap + padTop + 14;
+    const barMaxW = totalW - padL - padR;
+
+    const svg = d3.select('#timeline-svg').attr('width', totalW).attr('height', totalH);
+    svg.selectAll('*').remove();
+
+    incoming.forEach((d, i) => {
+      const y      = padTop + i * (rowH + rowGap);
+      const nameSz = desktop ? 13 : 11;
+      const subSz  = desktop ? 10 : 9;
+      const dateSz = desktop ? 9  : 8;
+      const g = svg.append('g').style('cursor', 'pointer');
+
+      g.append('text')
+        .attr('x', padL - 10).attr('y', y + rowH / 2 + 1)
+        .attr('dominant-baseline', 'middle').attr('text-anchor', 'end')
+        .attr('font-family', 'Inter, sans-serif')
+        .attr('font-size', dateSz).attr('font-weight', 800)
+        .attr('letter-spacing', '0.1em').attr('fill', '#8C8A87')
+        .text(d.date.toUpperCase());
+
+      g.append('rect')
+        .attr('x', padL).attr('y', y).attr('width', 0).attr('height', rowH)
+        .attr('fill', '#CE1126')
+        .transition().delay(180 + i * 160).duration(600).ease(d3.easeCubicOut)
+        .attr('width', barMaxW);
+
+      g.append('text')
+        .attr('x', padL + 12).attr('y', y + rowH / 2 - (desktop ? 5 : 4))
+        .attr('dominant-baseline', 'middle')
+        .attr('font-family', 'Inter, sans-serif')
+        .attr('font-size', nameSz).attr('font-weight', 800)
+        .attr('fill', '#FFFFFF').attr('opacity', 0).text(d.name)
+        .transition().delay(580 + i * 160).duration(220).attr('opacity', 1);
+
+      g.append('text')
+        .attr('x', padL + 12).attr('y', y + rowH / 2 + (desktop ? 10 : 9))
+        .attr('dominant-baseline', 'middle')
+        .attr('font-family', 'Inter, sans-serif')
+        .attr('font-size', subSz).attr('font-weight', 500)
+        .attr('fill', 'rgba(255,255,255,0.65)').attr('opacity', 0)
+        .text(`${d.pos}  ·  ${d.from}`)
+        .transition().delay(630 + i * 160).duration(220).attr('opacity', 1);
+
+      const hit = g.append('rect')
+        .attr('x', padL).attr('y', y).attr('width', barMaxW).attr('height', rowH)
+        .attr('fill', 'transparent').node();
+      bindTip(hit, d);
+    });
+  }
+
+  // ---- INIT ----
+  fitTitle();
+  drawReloadViz();
+  drawTimeline();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      fitTitle();
+      drawReloadViz();
+      drawTimeline();
+    }, 120);
+  });
+
+</script>
+</body>
+</html>
