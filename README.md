@@ -77,7 +77,7 @@ Both the flow viz and the timeline bar chart redraw automatically. Also add a pl
 | Rachael Okokoh | F/C | Incoming | Penn State | Team Canada U17 |
 | Jaida Civil | W | Incoming | Tennessee | 5-star, 6.4 PPG |
 | Jada Richard | G | Incoming | LSU | 9.5 PPG, 34 starts |
-| Doneelah Washington | G/F | Incoming | Illinois State | 16.7 PPG, 8.6 RPG |
+| Doneelah Washington | G/F | Incoming | Illinois State | 16.7 PPG, 8.6 RPG — Apr 19 |
 
 **Portal exits (from Ole Miss):** Tianna Thompson, J'Adore Young, Sira Thienou (entered portal Apr 20)
 
