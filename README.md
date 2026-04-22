@@ -22,13 +22,13 @@ Published to GitHub Pages at `theblacktechie.github.io`
 Three tabbed sections:
 
 **Tab 1 — The Reload**
-D3 flow visualization showing three columns: Departed (7 graduates + 2 portal exits), The Core (3 returners), and Incoming (7 portal additions). Animated bezier paths connect departed players to their replacements. Below the flow chart: an animated horizontal bar chart showing each commitment by date.
+D3 flow visualization showing three columns: Departed (7 graduates + 3 portal exits), The Core (2 returners), and Incoming (8 portal additions). Animated bezier paths connect departed players to their replacements. Below the flow chart: an animated horizontal bar chart showing each commitment by date.
 
 **Tab 2 — Where They Came From**
-Player cards for all seven portal additions with stats from their previous school, position badge, commit date, and editorial POV. International callout highlighting three Canadian-national players: Howard (Vancouver, BC), Anderson (Toronto, ON), and Okokoh (Montreal, QC).
+Player cards for all eight portal additions with stats from their previous school, position badge, commit date, and editorial POV. International callout highlighting three Canadian-national players: Howard (Vancouver, BC), Anderson (Toronto, ON), and Okokoh (Montreal, QC).
 
 **Tab 3 — Team 52 So Far**
-Full current roster with returners and portal additions, live portal window notice, and tally bar (3 returning / 7 incoming / 10 on roster / more coming).
+Full current roster with returners and portal additions, and tally bar (2 returning / 8 incoming / 10 on roster).
 
 ---
 
@@ -43,7 +43,7 @@ Full current roster with returners and portal additions, live portal window noti
 
 ## D3 Usage
 
-- Flow viz: D3 SVG with animated bezier paths (stroke-dasharray/offset technique), animated node reveals with staggered delays
+- Flow viz: D3 SVG with animated bezier paths, animated node reveals with staggered delays
 - Timeline: D3 SVG horizontal bar chart with animated width reveals
 - Both charts are fully responsive and redraw on window resize
 - Tooltips: custom HTML tooltips with touch support for mobile (touchstart/touchend)
@@ -62,15 +62,12 @@ When a new player commits, add them to the `incoming` array in the script block:
 
 Both the flow viz and the timeline bar chart redraw automatically. Also add a player card in Tab 2 HTML and a new `.roster-player.incoming` row in Tab 3. Update the tally numbers accordingly.
 
-Portal window closes **April 20, 2026.**
-
 ---
 
-## Roster Reference (as of April 17, 2026)
+## Roster Reference (as of April 22, 2026)
 
 | Player | Pos | Status | Previous School | Key Stat |
 |---|---|---|---|---|
-| Sira Thienou | G | Returning | Ole Miss | 10.5 PPG |
 | Desrae Kyles | C | Returning | Ole Miss (via CMU) | Developmental big |
 | Lauren Jacobs | G | Returning | Ole Miss | #1 recruit, SC |
 | Talaysia Cooper | G | Incoming | Tennessee | 16.0 PPG, ESPN #4 |
@@ -80,8 +77,11 @@ Portal window closes **April 20, 2026.**
 | Rachael Okokoh | F/C | Incoming | Penn State | Team Canada U17 |
 | Jaida Civil | W | Incoming | Tennessee | 5-star, 6.4 PPG |
 | Jada Richard | G | Incoming | LSU | 9.5 PPG, 34 starts |
+| Doneelah Washington | G/F | Incoming | Illinois State | 16.7 PPG, 8.6 RPG |
 
-**Total: 3 returning + 7 incoming = 10 on roster. Portal closes April 20, 2026.**
+**Portal exits (from Ole Miss):** Tianna Thompson, J'Adore Young, Sira Thienou (entered portal Apr 20)
+
+**Total: 2 returning + 8 incoming = 10 on roster.**
 
 ---
 
